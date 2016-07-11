@@ -19,10 +19,10 @@ script:
   - docker build -t quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG} .
 
 after_success:
-  - docker login -e . -p "${QUAY_PASSWORD}" -u "${QUAY_USER}" quay.io
-    docker push quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG}
-    docker tag -f quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG} quay.io/${QUAY_ORG}/${QUAY_REPO}:latest
-    docker push quay.io/${QUAY_ORG}/${QUAY_REPO}:latest
+  - docker login -e . -p "${QUAY_PASSWORD}" -u "${QUAY_USER}" quay.io;
+    docker push quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG};
+    docker tag -f quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG} quay.io/${QUAY_ORG}/${QUAY_REPO}:latest;
+    docker push quay.io/${QUAY_ORG}/${QUAY_REPO}:latest;
 
 notifications:
   slack:
