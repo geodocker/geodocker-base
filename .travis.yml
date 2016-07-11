@@ -22,7 +22,8 @@ before_deploy:
   - docker login -e . -p "${QUAY_PASSWORD}" -u "${QUAY_USER}" quay.io
 
 deploy:
- - provider: script
+  skip_cleanup: true
+  - provider: script
     script: ".travis/deploy.sh"
     on:
       repo: echeipesh/geodocker-base
