@@ -16,10 +16,11 @@ before_install:
   - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
 
 install:
+  - echo quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG}
   - docker build -t quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG} .
 
 before_deploy:
-  - docker login -e . -p "${QUAY_PASSWORD}" -u "${QUAY_USER}" quay.io
+  - docker login -p "${QUAY_PASSWORD}" -u "${QUAY_USER}" quay.io
 
 deploy:
   - provider: script
