@@ -1,4 +1,3 @@
-set -e
 set -x
 
 docker push quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG}
