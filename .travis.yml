@@ -23,17 +23,11 @@ before_deploy:
 
 deploy:
   - provider: script
-    script: ".travis/deploy.sh"
+    script: docker push quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG}
     skip_cleanup: true
     on:
       repo: echeipesh/geodocker-base
       branch: master
-  - provider: script
-    script: ".travis/deploy.sh"
-    skip_cleanup: true
-    on:
-      repo: echeipesh/geodocker-base
-      tags: true
 
 notifications:
   slack:
