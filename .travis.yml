@@ -6,7 +6,7 @@ services:
 env:
   global:
   - DOCKER_VERSION=1.11.2-0~trusty
-  - QUAY_ORG= ${TRAVIS_REPO_SLUG%/*}
+  - QUAY_ORG=${TRAVIS_REPO_SLUG%/*}
   - QUAY_REPO=${TRAVIS_REPO_SLUG##*-}
   - QUAY_TAG=${TRAVIS_TAG:-${TRAVIS_COMMIT:0:7}}
 
