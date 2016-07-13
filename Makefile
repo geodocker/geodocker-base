@@ -1,11 +1,18 @@
-QUAY_ORG=geodocker
-QUAY_REPO=base
-QUAY_TAG=latest
+BASE := $(subst -, ,$(notdir ${CURDIR}))
+ORG  := $(word 1, ${BASE})
+REPO := $(word 2, ${BASE})
+IMG  := quay.io/${ORG}/${REPO}
+TAG  := latest
 
 build:
-	docker build -t quay.io/${QUAY_ORG}/${QUAY_REPO}:latest .
+	docker build -t ${IMG}:${TAG}	.
 
-publish:
-	docker push quay.io/${QUAY_ORG}/${QUAY_REPO}:latest
-	docker tag quay.io/${QUAY_ORG}/${QUAY_REPO}:latest quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG}
-	docker push quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG}
+publish: build
+	docker push ${IMG}:${TAG}
+	if [ ${TAG} != "latest" ]; then \
+		docker tag ${IMG}:${TAG} ${IMG}:latest \
+		docker push ${IMG}:latest \
+	fi
+
+test: build
+	docker run -it --rm ${IMG}:${TAG} java -version
