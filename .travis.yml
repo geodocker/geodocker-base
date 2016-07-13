@@ -16,19 +16,20 @@ before_install:
 
 install:
 - echo quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG}
-- docker build -t quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG} .
+- make -e build
+# - docker build -t quay.io/${QUAY_ORG}/${QUAY_REPO}:${QUAY_TAG} .
 
 before_deploy:
 - docker login -p "${QUAY_PASSWORD}" -u "${QUAY_USER}" quay.io
 
 deploy:
 - provider: script
-  script: .travis/deploy.sh
+  script: make -e publish
   skip_cleanup: true
   on:
     branch: master
 - provider: script
-  script: .travis/deploy.sh
+  script: make -e publish
   skip_cleanup: true
   on:
     tags: true
