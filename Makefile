@@ -9,10 +9,7 @@ build:
 
 publish: build
 	docker push ${IMG}:${TAG}
-	if [ ${TAG} != "latest" ]; then \
-		docker tag ${IMG}:${TAG} ${IMG}:latest \
-		docker push ${IMG}:latest \
-	fi
+	@if [ "${TAG}" != "latest" ]; then docker tag ${IMG}:${TAG} ${IMG}:latest && docker push ${IMG}:latest; fi
 
 test: build
 	docker run -it --rm ${IMG}:${TAG} java -version
