@@ -9,6 +9,7 @@ ENV JAVA_HOME /usr/java/jdk1.8.0_45
 ENV PATH $PATH:$JAVA_HOME/bin
 
 RUN set -x \
-  && curl -# -LO 'http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm' -H 'Cookie: oraclelicense=accept-securebackup-cookie' \
+  && curl -sS -LO 'http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm' -H 'Cookie: oraclelicense=accept-securebackup-cookie' \
   && rpm -Uvh jdk-8u45-linux-x64.rpm \
-  && rm -rf jdk-8u45-linux-x64.rpm
+  && rm -rf jdk-8u45-linux-x64.rpm \
+  && curl -sS http://archive.apache.org/dist/bigtop/bigtop-1.1.0/repos/centos7/bigtop.repo > /etc/yum.repos.d/bigtop.repo
